@@ -1,3 +1,3 @@
-# kweaver-go-lib
+# bkn-comm-go
 
-Kweaver Go 私有依赖库
+openbkn Go 公共依赖库

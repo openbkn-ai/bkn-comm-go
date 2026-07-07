@@ -55,5 +55,5 @@ func (d RDSDriver) OpenConnector(dsn string) (driver.Connector, error) {
 }
 
 func init() {
-	sql.Register("proton-rds", &RDSDriver{})
+	sql.Register("openbkn-rds", &RDSDriver{})
 }

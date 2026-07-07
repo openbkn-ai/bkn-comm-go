@@ -6,14 +6,18 @@ require (
 	gitee.com/chunanyong/dm v1.8.23
 	github.com/BurntSushi/toml v1.6.0
 	github.com/IBM/sarama v1.50.3
+	github.com/agiledragon/gomonkey/v2 v2.14.0
+	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/bytedance/sonic v1.15.2
 	github.com/cenkalti/backoff/v4 v4.3.0
 	github.com/emirpasic/gods v1.18.1
 	github.com/gin-gonic/gin v1.12.0
 	github.com/go-sql-driver/mysql v1.10.0
 	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9
+	github.com/nsqio/go-nsq v1.1.0
 	github.com/opensearch-project/opensearch-go/v2 v2.3.0
 	github.com/rs/xid v1.6.0
+	github.com/segmentio/kafka-go v0.4.51
 	github.com/shopspring/decimal v1.4.0
 	github.com/smartystreets/goconvey v1.8.1
 	go.opentelemetry.io/otel v1.44.0
@@ -28,6 +32,7 @@ require (
 	golang.org/x/sys v0.46.0
 	golang.org/x/text v0.39.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -75,6 +80,9 @@ require (
 	github.com/smarty/assertions v1.16.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.3.1 // indirect
+	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
+	github.com/xdg-go/scram v1.2.0 // indirect
+	github.com/xdg-go/stringprep v1.0.4 // indirect
 	go.mongodb.org/mongo-driver/v2 v2.5.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.44.0 // indirect
