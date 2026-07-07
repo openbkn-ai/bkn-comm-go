@@ -12,8 +12,7 @@ import (
 	"sync"
 	"time"
 
-	_ "github.com/kweaver-ai/proton-rds-sdk-go/driver"
-
+	_ "github.com/openbkn-ai/bkn-comm-go/db/driver"
 	"github.com/openbkn-ai/bkn-comm-go/logger"
 )
 
