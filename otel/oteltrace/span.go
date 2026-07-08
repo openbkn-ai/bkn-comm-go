@@ -46,6 +46,36 @@ func StartClientSpan(ctx context.Context) (context.Context, trace.Span) {
 	return newCtx, span
 }
 
+// StartServerSpanFromContext 服务端调用创建 span，自动从 runtime.Caller 获取 span name。
+func StartServerSpanFromContext(ctx context.Context) (context.Context, trace.Span) {
+	name, filepath := callerFuncName(2)
+	newCtx, span := StartNamedServerSpan(ctx, name)
+	if filepath != "" {
+		span.SetAttributes(attr.String("code.filepath", filepath))
+	}
+	return newCtx, span
+}
+
+// StartProducerSpan 消息生产创建 span，自动从 runtime.Caller 获取 span name。
+func StartProducerSpan(ctx context.Context) (context.Context, trace.Span) {
+	name, filepath := callerFuncName(2)
+	newCtx, span := StartNamedProducerSpan(ctx, name)
+	if filepath != "" {
+		span.SetAttributes(attr.String("code.filepath", filepath))
+	}
+	return newCtx, span
+}
+
+// StartConsumerSpan 消息消费创建 span，自动从 runtime.Caller 获取 span name。
+func StartConsumerSpan(ctx context.Context) (context.Context, trace.Span) {
+	name, filepath := callerFuncName(2)
+	newCtx, span := StartNamedConsumerSpan(ctx, name)
+	if filepath != "" {
+		span.SetAttributes(attr.String("code.filepath", filepath))
+	}
+	return newCtx, span
+}
+
 func callerFuncName(skip int) (string, string) {
 	pc, file, lineNo, ok := runtime.Caller(skip)
 	if !ok {
@@ -65,13 +95,28 @@ func StartNamedInternalSpan(ctx context.Context, name string) (context.Context, 
 	return otel.Tracer(InstrumentationName).Start(ctx, name, trace.WithSpanKind(trace.SpanKindInternal))
 }
 
+// StartNamedServerSpan 用自定义业务名创建 SpanKindServer 类型 span。
+func StartNamedServerSpan(ctx context.Context, name string) (context.Context, trace.Span) {
+	return otel.Tracer(InstrumentationName).Start(ctx, name, trace.WithSpanKind(trace.SpanKindServer))
+}
+
+// StartNamedProducerSpan 用自定义业务名创建 SpanKindProducer 类型 span。
+func StartNamedProducerSpan(ctx context.Context, name string) (context.Context, trace.Span) {
+	return otel.Tracer(InstrumentationName).Start(ctx, name, trace.WithSpanKind(trace.SpanKindProducer))
+}
+
+// StartNamedConsumerSpan 用自定义业务名创建 SpanKindConsumer 类型 span。
+func StartNamedConsumerSpan(ctx context.Context, name string) (context.Context, trace.Span) {
+	return otel.Tracer(InstrumentationName).Start(ctx, name, trace.WithSpanKind(trace.SpanKindConsumer))
+}
+
 // StartServerSpan 跨服务（HTTP 接口）创建 span。
 // 前置依赖：TracingMiddleware 已把 trace header 提取到 c.Request.Context()，
 //
 //	LanguageMiddleware 已把 language 叠加到 c.Request.Context()。
 func StartServerSpan(c *gin.Context) (context.Context, trace.Span) {
 	spanName := fmt.Sprintf("%s %s", c.Request.Method, c.FullPath())
-	newCtx, span := otel.Tracer(InstrumentationName).Start(c.Request.Context(), spanName, trace.WithSpanKind(trace.SpanKindServer))
+	newCtx, span := StartNamedServerSpan(c.Request.Context(), spanName)
 	span.SetAttributes(
 		attr.String("http.request.method", c.Request.Method),
 		attr.String("http.route", c.FullPath()),
