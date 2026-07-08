@@ -21,12 +21,12 @@ nsq|2.x
 ## Go version
 go-msq requires Go version 1.16 or later.
 
-## Proton MQ Client
+## OpenBKN MQ Client
 The `OpenBKNMQClient` interface defines the core method of publish/subscribe messages action.The `NewOpenBKNMQClient` create the client which implemented `OpenBKNMQClient` according to `mqType`.
 
 import sdk use 
 ```go
-import msqclient "github.com/AISHU-Technology/proton-mq-sdk-go"
+import msqclient "github.com/openbkn-ai/bkn-comm-go/mq"
 ```
 
 Available value of variable `mqType`:
@@ -35,16 +35,16 @@ Available value of variable `mqType`:
 
 For example:
 ```go
-client, err := msqclient.NewOpenBKNMQClient("proton-mq-nsq-nsqd.resource", 4151,"proton-mq-nsq-nsqlookupd.resource", 4161, "nsq")
+client, err := msqclient.NewOpenBKNMQClient("openbkn-mq-nsq-nsqd.resource", 4151,"openbkn-mq-nsq-nsqlookupd.resource", 4161, "nsq")
 if err != nil {
-    log.Fatal("failed to create a proton mq client:", err)
+    log.Fatal("failed to create a openbkn mq client:", err)
 }
 
 // also you can Create OpenBKNMQClient using configfile
 // File content format, please see examples/config.yaml
 client, err := msqclient.NewOpenBKNMQClientFromFile("/path/to/configfile")
 if err != nil {
-    log.Fatal("failed to create a proton mq client:", err)
+    log.Fatal("failed to create a openbkn mq client:", err)
 }
 ```
 
@@ -52,9 +52,9 @@ Note that it is important to call `Close()` on a `OpenBKNMQClient` when you do n
 ```go
 // to publish messages
 // notice: when using besmq, pubServerPort and subServerIP is a string composite of ips split by comma.
-c, err :=  msqclient.NewProtonMSQClient(pubServerIP, pubServerPort, subServerIP, subServerPort, msqType)
+c, err :=  msqclient.NewOpenBKNMSQClient(pubServerIP, pubServerPort, subServerIP, subServerPort, msqType)
 if err != nil {
-    log.Fatal("failed to create a proton mq client:", err)
+    log.Fatal("failed to create a openbkn mq client:", err)
 }
 defer c.Close()
 
@@ -67,9 +67,9 @@ for i:=0; i<10000; i++ {
 ```
 ```go
 // to subscribe messages
-c, err :=  msqclient.NewProtonMSQClient(pubServerIP, pubServerPort, subServerIP, subServerPort, msqType)
+c, err :=  msqclient.NewOpenBKNMSQClient(pubServerIP, pubServerPort, subServerIP, subServerPort, msqType)
 if err != nil {
-    log.Fatal("failed to create a proton mq client:", err)
+    log.Fatal("failed to create a openbkn mq client:", err)
 }
 // sub would block current gorountine until process is killed, gracefully shutdown for unfinished message is handled
 // start a loop to fetch-process-ack messages
@@ -87,10 +87,10 @@ username := "testUser"
 password := "testPasswd"
 opts := []msqclientClientOpt{msqclient.UserInfo(username, password), msqclient.AuthMechanism("PLAIN")}
 
-client, err := msqclient.NewOpenBKNMQClient("proton-mq-nsq-nsqd.resource", 4151,"proton-mq-nsq-nsqlookupd.resource", 4161, "nsq", opts...)
+client, err := msqclient.NewOpenBKNMQClient("openbkn-mq-nsq-nsqd.resource", 4151,"openbkn-mq-nsq-nsqlookupd.resource", 4161, "nsq", opts...)
 
 if err != nil {
-    log.Fatal("failed to create a proton mq client:", err)
+    log.Fatal("failed to create a openbkn mq client:", err)
 }
 ```
 #### SCRAM
@@ -102,10 +102,10 @@ opts := []msqclient.ClientOpt{msqclient.UserInfo(username, password), msqclient.
 // when use SCRAM-SHA-512
 // opts := []msqclient.ClientOpt{msqclient.UserInfo(username, password), msqclient.AuthMechanism("SCRAM-SHA-512")}
 
-client, err := msqclient.NewOpenBKNMQClient("proton-mq-nsq-nsqd.resource", 4151,"proton-mq-nsq-nsqlookupd.resource", 4161, "nsq", opts...)
+client, err := msqclient.NewOpenBKNMQClient("openbkn-mq-nsq-nsqd.resource", 4151,"openbkn-mq-nsq-nsqlookupd.resource", 4161, "nsq", opts...)
 
 if err != nil {
-    log.Fatal("failed to create a proton mq client:", err)
+    log.Fatal("failed to create a openbkn mq client:", err)
 }
 ```
 

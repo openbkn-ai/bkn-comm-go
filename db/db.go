@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	DRIVER_NAME = "proton-rds"
+	DRIVER_NAME = "openbkn-rds"
 )
 
 // db配置项

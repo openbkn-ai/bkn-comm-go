@@ -55,7 +55,7 @@ func UserInfo(user, passwd string) ClientOpt {
 	}
 }
 
-// Mechanism of authentication, support `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`. Currently only supports for proton Kafka client.
+// Mechanism of authentication, support `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`. Currently only supports for openbkn Kafka client.
 func AuthMechanism(mechanism string) ClientOpt {
 	return func(client OpenBKNMQClient) error {
 		switch (interface{})(client).(type) {
@@ -214,7 +214,7 @@ func NewOpenBKNMQClient(pubServer string, pubPort int, subServer string, subPort
 }
 
 // config file struct define
-type ProtonMQInfo struct {
+type OpenBKNMQInfo struct {
 	Host        string    `json:"mqHost" yaml:"mqHost"`
 	Port        int       `json:"mqPort" yaml:"mqPort"`
 	LookupdHost string    `json:"mqLookupdHost" yaml:"mqLookupdHost"`
@@ -236,7 +236,7 @@ func NewOpenBKNMQClientFromFile(configFile string) (OpenBKNMQClient, error) {
 	if _, err := os.Stat(fp); err != nil {
 		return nil, err
 	}
-	info := new(ProtonMQInfo)
+	info := new(OpenBKNMQInfo)
 	config, err := os.ReadFile(fp)
 	if err != nil {
 		return nil, err

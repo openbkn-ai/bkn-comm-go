@@ -40,6 +40,6 @@ func FormatDSN(cfg common.DSNConfig) (string, error) {
 		dsn += fmt.Sprintf("connect_timeout=%d ", timeout/(1000*1000*1000))
 	}
 
-	dsn += "sslmode=disable dbname=proton"
+	dsn += "sslmode=disable dbname=openbkn"
 	return dsn, nil
 }

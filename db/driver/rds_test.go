@@ -140,7 +140,7 @@ func TestOpen_KDB9(t *testing.T) {
 	}
 	Convey("Test db.Open\n", t, func() {
 		info := getTestDBInfo(DBType_KDB9)
-		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/proton?timeout=10s", info.Username, info.Password, info.Host, info.Port)
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/openbkn?timeout=10s", info.Username, info.Password, info.Host, info.Port)
 		Convey("Error dsn, return error\n", func() {
 			_, err = RDSDriver{}.Open("xxxxx")
 			So(err, ShouldNotBeNil)
@@ -165,8 +165,8 @@ func TestInit(t *testing.T) {
 			_, err := sql.Open("xxx", dsn)
 			So(err, ShouldNotBeNil)
 		})
-		Convey("proton-rds driver\n", func() {
-			_, err := sql.Open("proton-rds", dsn)
+		Convey("openbkn-rds driver\n", func() {
+			_, err := sql.Open("openbkn-rds", dsn)
 			So(err, ShouldBeNil)
 		})
 	})
@@ -229,7 +229,7 @@ func TestOpenConnector_KDB9(t *testing.T) {
 	}
 	Convey("Test db.OpenConnector\n", t, func() {
 		info := getTestDBInfo(DBType_KDB9)
-		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/proton?timeout=10s", info.Username, info.Password, info.Host, info.Port)
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/openbkn?timeout=10s", info.Username, info.Password, info.Host, info.Port)
 		Convey("Error dsn, return error\n", func() {
 			_, err = RDSDriver{}.OpenConnector("xxxxx")
 			So(err, ShouldNotBeNil)

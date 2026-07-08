@@ -79,7 +79,7 @@ func ParseHost(host string) string {
 
 // NewDB 新建数据库连接
 func NewDB(dbConfig *DBConfig) (*DB, error) {
-	driverName := "proton-rds"
+	driverName := "openbkn-rds"
 	if dbConfig.CustomDriver != "" {
 		driverName = dbConfig.CustomDriver
 	}
