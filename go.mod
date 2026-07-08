@@ -5,6 +5,7 @@ go 1.25.0
 require (
 	gitee.com/chunanyong/dm v1.8.23
 	github.com/BurntSushi/toml v1.6.0
+	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/IBM/sarama v1.50.3
 	github.com/agiledragon/gomonkey/v2 v2.14.0
 	github.com/avast/retry-go v3.0.0+incompatible
