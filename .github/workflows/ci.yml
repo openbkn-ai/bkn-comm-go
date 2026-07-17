@@ -30,4 +30,7 @@ jobs:
           go vet $packages
 
       - name: Test
-        run: go test ./...
+        # db/driver (+ mysql/dmdb/kingbase) tests require live DB env vars (e.g. MYSQL_TEST_PORT)
+        run: |
+          packages="$(go list ./... | grep -Ev '/db/driver($|/(mysql|dmdb|kingbase)$)')"
+          go test $packages
